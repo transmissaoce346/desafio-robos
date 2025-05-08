@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Desafio de Robôs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6 font-sans">
+  <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow flex flex-col md:flex-row gap-6">
+
+    <!-- Coluna da Esquerda: Missões -->
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold mb-6 text-center">Desafio de Robôs - Festival Marista de Robótica</h1>
+
+      <!-- Missão 1 -->
+      <div class="mb-6">
+        <label class="block mb-2 text-lg font-extrabold">Missão 1: Colheita dos Frutos (máx. 140 pontos): <span id="val1">0</span></label>
+
+        <div class="mb-2">
+          <label class="block font-semibold">Frutos vermelhos (20 pts): <span id="vermelhasLabel">0</span></label>
+          <input type="range" min="0" max="7" step="1" value="0" class="w-full" id="vermelhas">
+        </div>
+        <div class="mb-2">
+          <label class="block font-semibold">Frutos amarelos (10 pts): <span id="amarelasLabel">0</span></label>
+          <input type="range" min="0" max="14" step="1" value="0" class="w-full" id="amarelas">
+        </div>
+        <div class="mb-2">
+          <label class="block font-semibold">Frutos verdes (-10 pts): <span id="verdesLabel">0</span></label>
+          <input type="range" min="0" max="4" step="1" value="0" class="w-full" id="verdes">
+        </div>
+
+        <!-- Nova pergunta Missão 1 -->
+        <div class="mt-4">
+          <label class="block font-semibold">O robô transportou os frutos e o lixo ao mesmo tempo?</label>
+          <div class="space-x-4 mt-2">
+            <label><input type="radio" name="transporteFrutosLixo" value="sim"> Sim</label>
+            <label><input type="radio" name="transporteFrutosLixo" value="nao" checked> Não</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Missão 2 -->
+      <div class="mb-6">
+        <label class="block mb-2 text-lg font-extrabold">Missão 2: Limpeza do Rio (0–80): <span id="val2">0</span></label>
+
+        <!-- ✅ Texto adicionado aqui -->
+        <label class="block font-semibold mb-1">Quantidade de lixos removidos:</label>
+        <input type="range" min="0" max="80" step="10" value="0" class="w-full" data-id="val2" data-legenda="legenda2">
+        <div class="text-blue-600 font-medium mt-1">Legenda: <span id="legenda2">Nenhum resíduo coletado</span></div>
+
+        <!-- Nova pergunta Missão 2 -->
+        <div class="mt-4">
+          <label class="block font-semibold">O robô passou pelo rio após a limpeza? <span id="val2Desconto">0</span></label>
+          <input type="range" min="0" max="5" step="1" value="0" class="w-full" id="passagensRio">
+          <div class="text-blue-600 font-medium mt-1">Legenda: <span id="legendaPassagensRio">Não passou nenhuma vez</span></div>
+        </div>
+      </div>
+
+      <!-- Missão 3 -->
+      <div class="mb-6">
+        <label class="block mb-2 text-lg font-extrabold">Missão 3: Entrega das Bolinhas: <span id="val3">0</span></label>
+
+        <div class="space-y-2">
+          <label class="block font-semibold">
+            <input type="radio" name="missao3" value="50" data-id="val3" data-legenda="Depositou 1 bolinha branca">
+            Depositou 1 (uma) bolinha branca (50 pontos)
+          </label>
+          <label class="block font-semibold">
+            <input type="radio" name="missao3" value="100" data-id="val3" data-legenda="Quantidade correta sem leitura">
+            Depositou a quantidade correta de bolinhas (sem realizar a leitura) - 100 pontos
+          </label>
+          <label class="block font-semibold">
+            <input type="radio" name="missao3" value="200" data-id="val3" data-legenda="Ordem errada">
+            Depositou a quantidade correta de bolinhas na ordem errada - 200 pontos
+          </label>
+          <label class="block font-semibold">
+            <input type="radio" name="missao3" value="300" data-id="val3" data-legenda="Ordem correta">
+            Depositou a quantidade correta de bolinhas na ordem correta - 300 pontos
+          </label>
+        </div>
+
+        <div class="mt-3">
+          <label class="block font-semibold">
+            <input type="checkbox" id="sensorCheck" value="50">
+            Demonstrou a utilização do sensor (+50 pontos)
+          </label>
+        </div>
+
+        <div class="text-blue-600 font-medium mt-1">Legenda: <span id="legenda3">Nenhuma opção selecionada</span></div>
+      </div>
+
+      <!-- Missão 4 -->
+      <div class="mb-6">
+        <label class="block mb-2 text-lg font-extrabold">Missão 4: Preparação do Solo (0–60): <span id="val4">0</span></label>
+
+        <!-- ✅ Texto adicionado aqui -->
+        <label class="block font-semibold mb-1">Quantidade de caixas transportadas:</label>
+        <input type="range" min="0" max="60" step="5" value="0" class="w-full" data-id="val4" data-legenda="legenda4">
+        <div class="text-blue-600 font-medium mt-1">Legenda: <span id="legenda4">Nenhuma caixa de terra fértil</span></div>
+      </div>
+    </div>
+
+    <!-- Coluna da Direita: Pontuação Final + Cronômetro -->
+    <div class="flex flex-col justify-center items-center bg-gray-50 rounded-lg p-6 shadow-inner w-full md:w-80">
+      <h2 class="text-3xl font-bold mb-4 text-center">Pontuação Total</h2>
+      <div class="text-6xl font-extrabold text-green-600 mb-6"><span id="total">0</span></div>
+      <button onclick="resetar()" class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 mb-6">Resetar</button>
+
+      <!-- Cronômetro -->
+      <h3 class="text-xl font-bold mb-2">Cronômetro</h3>
+      <div class="text-4xl font-mono mb-4" id="timer">02:30</div>
+      <div class="flex gap-2">
+        <button onclick="startTimer()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Iniciar</button>
+        <button onclick="pauseTimer()" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Pausar</button>
+        <button onclick="resetTimer()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const legendaMapas = {
+      val2: {
+        0: "Nenhum resíduo coletado",
+        10: "1 resíduo coletado",
+        20: "2 resíduos coletados",
+        30: "3 resíduos coletados",
+        40: "4 resíduos coletados",
+        50: "5 resíduos coletados",
+        60: "6 resíduos coletados",
+        70: "7 resíduos coletados",
+        80: "8 resíduos coletados"
+      },
+      val4: {
+        0: "Nenhuma caixa de terra fértil",
+        5: "1 caixa de terra fértil",
+        10: "2 caixas de terra fértil",
+        15: "3 caixas de terra fértil",
+        20: "4 caixas de terra fértil",
+        25: "5 caixas de terra fértil",
+        30: "6 caixas de terra fértil",
+        35: "7 caixas de terra fértil",
+        40: "8 caixas de terra fértil",
+        45: "9 caixas de terra fértil",
+        50: "10 caixas de terra fértil",
+        55: "11 caixas de terra fértil",
+        60: "12 caixas de terra fértil"
+      },
+      passagensRio: {
+        0: "Não passou nenhuma vez",
+        1: "Passou 1 vez (-10 pts)",
+        2: "Passou 2 vezes (-20 pts)",
+        3: "Passou 3 vezes (-30 pts)",
+        4: "Passou 4 vezes (-40 pts)",
+        5: "Passou 5 vezes ou mais (-50 pts)"
+      }
+    };
+
+    const sliders = document.querySelectorAll('input[type="range"]');
+    const totalSpan = document.getElementById('total');
+
+    function atualizarPontuacao() {
+      let total = 0;
+
+      const vermelhas = parseInt(document.getElementById("vermelhas").value);
+      const amarelas = parseInt(document.getElementById("amarelas").value);
+      const verdes = parseInt(document.getElementById("verdes").value);
+      let pontosMissao1 = vermelhas * 20 + amarelas * 10 + verdes * -10;
+      if (pontosMissao1 > 140) pontosMissao1 = 140;
+      if (pontosMissao1 < 0) pontosMissao1 = 0;
+      document.getElementById("val1").textContent = pontosMissao1;
+      total += pontosMissao1;
+
+      document.getElementById("vermelhasLabel").textContent = vermelhas;
+      document.getElementById("amarelasLabel").textContent = amarelas;
+      document.getElementById("verdesLabel").textContent = verdes;
+
+      sliders.forEach(slider => {
+        const id = slider.dataset.id;
+        if (id === "val2" || id === "val4") {
+          const valor = parseInt(slider.value);
+          total += valor;
+          document.getElementById(id).textContent = valor;
+          const legendaId = slider.dataset.legenda;
+          const legendaTexto = legendaMapas[id][valor] || "";
+          document.getElementById(legendaId).textContent = legendaTexto;
+        }
+      });
+
+      let val3 = 0;
+      let legenda3 = "Nenhuma opção selecionada";
+      document.querySelectorAll('input[name="missao3"]').forEach(radio => {
+        if (radio.checked) {
+          val3 = parseInt(radio.value);
+          legenda3 = radio.dataset.legenda;
+        }
+      });
+
+      const sensor = document.getElementById('sensorCheck');
+      if (sensor.checked) {
+        val3 += parseInt(sensor.value);
+        legenda3 += " + Sensor";
+      }
+
+      total += val3;
+      document.getElementById('val3').textContent = val3;
+      document.getElementById('legenda3').textContent = legenda3;
+
+      const transporteSim = document.querySelector('input[name="transporteFrutosLixo"][value="sim"]').checked;
+      if (transporteSim) {
+        total -= 100;
+      }
+
+      const passagens = parseInt(document.getElementById('passagensRio').value);
+      let descontoRio = Math.min(passagens * 10, 50);
+      total -= descontoRio;
+      document.getElementById('val2Desconto').textContent = `-${descontoRio}`;
+      document.getElementById('legendaPassagensRio').textContent = legendaMapas.passagensRio[passagens];
+
+      if (total < 0) total = 0;
+
+      totalSpan.textContent = total;
+    }
+
+    function resetar() {
+      document.getElementById("vermelhas").value = 0;
+      document.getElementById("amarelas").value = 0;
+      document.getElementById("verdes").value = 0;
+
+      document.getElementById("vermelhasLabel").textContent = 0;
+      document.getElementById("amarelasLabel").textContent = 0;
+      document.getElementById("verdesLabel").textContent = 0;
+
+      sliders.forEach(slider => {
+        slider.value = 0;
+        const id = slider.dataset.id;
+        if (id) {
+          document.getElementById(id).textContent = "0";
+          const legendaId = slider.dataset.legenda;
+          document.getElementById(legendaId).textContent = legendaMapas[id][0];
+        }
+      });
+
+      document.querySelectorAll('input[name="missao3"]').forEach(r => r.checked = false);
+      document.getElementById('sensorCheck').checked = false;
+      document.querySelector('input[name="transporteFrutosLixo"][value="nao"]').checked = true;
+      document.getElementById("passagensRio").value = 0;
+      document.getElementById('val2Desconto').textContent = "0";
+      document.getElementById('legendaPassagensRio').textContent = legendaMapas.passagensRio[0];
+
+      atualizarPontuacao();
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', atualizarPontuacao);
+      input.addEventListener('change', atualizarPontuacao);
+    });
+
+    atualizarPontuacao();
+
+    let timerInterval;
+    let timeRemaining = 150;
+
+    function updateDisplay() {
+      const minutes = String(Math.floor(timeRemaining / 60)).padStart(2, '0');
+      const seconds = String(timeRemaining % 60).padStart(2, '0');
+      document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          updateDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timeRemaining = 150;
+      updateDisplay();
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
